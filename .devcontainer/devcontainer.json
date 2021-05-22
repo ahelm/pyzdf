@@ -9,20 +9,13 @@
 	},
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
-		"python.pythonPath": "/usr/local/bin/python",
-		"python.languageServer": "Pylance",
-		"python.linting.enabled": true,
-		"python.linting.pylintEnabled": true,
-		"python.formatting.blackPath": "/usr/local/bin/black",
-		"python.linting.mypyPath": "/usr/local/bin/mypy",
-		"python.linting.pylintPath": "/usr/local/bin/pylint",
-		"python.poetryPath": "/usr/local/bin/poetry",
 	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance",
-		"ms-vscode.cpptools"
+		"ms-vscode.cpptools",
+		"bungcip.better-toml"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
