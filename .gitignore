@@ -130,3 +130,7 @@ dmypy.json
 
 # vscode settings should not be tracked by git
 .vscode/settings.json
+
+# dummy hello.c file
+# TODO: should be removed after testing is over
+pyzdf/hello.c
