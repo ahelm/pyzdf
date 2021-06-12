@@ -1,6 +1,6 @@
 repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.2.0
+      rev: v4.0.1
       hooks:
           - id: trailing-whitespace
           - id: end-of-file-fixer
@@ -16,7 +16,7 @@ repos:
             exclude: ^.*\/__init__\.py$
 
     - repo: https://github.com/psf/black
-      rev: 21.5b1
+      rev: 21.6b0
       hooks:
           - id: black
 
@@ -26,6 +26,6 @@ repos:
           - id: flake8
 
     -   repo: https://github.com/pre-commit/mirrors-mypy
-        rev: ''  # Use the sha / tag you want to point at
+        rev: 'v0.902'
         hooks:
         -   id: mypy
