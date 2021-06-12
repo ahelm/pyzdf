@@ -4,7 +4,7 @@ from enum import Enum
 cdef extern from "zdf.h":
     int ZDF_MAGIC_LENGTH
     const char* zdf_magic
-    cdef enum zdf_data_type:
+    enum zdf_data_type:
         zdf_null
         zdf_int8
         zdf_uint8
@@ -16,10 +16,11 @@ cdef extern from "zdf.h":
         zdf_uint64
         zdf_float32
         zdf_float64
-    cdef enum zdf_file_access_mode:
+    enum zdf_file_access_mode:
         ZDF_CREATE
         ZDF_READ
         ZDF_UPDATE
+    size_t zdf_sizeof(zdf_data_type data_type)
 
 _zdf_magic = zdf_magic[:ZDF_MAGIC_LENGTH].decode()
 
@@ -40,3 +41,9 @@ class _zdf_file_access_mode(Enum):
     create = zdf_file_access_mode.ZDF_CREATE
     read = zdf_file_access_mode.ZDF_READ
     update = zdf_file_access_mode.ZDF_UPDATE
+
+def _zdf_sizeof(data_type):
+    if isinstance(data_type, _zdf_data_type):
+        return zdf_sizeof(data_type.value)
+    else:
+        raise TypeError("Invalid data type provided")
