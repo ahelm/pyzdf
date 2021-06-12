@@ -1,6 +1,8 @@
 from enum import Enum
 
-from pyzdf.zdf import ZDF_MAGIC_NUMBER, zdf_data_type, zdf_file_access_mode
+from pyzdf.zdf import ZDF_MAGIC_NUMBER
+from pyzdf.zdf import zdf_data_type
+from pyzdf.zdf import zdf_file_access_mode
 
 
 def test_zdf_magic():
