@@ -132,4 +132,4 @@ dmypy.json
 .vscode/settings.json
 
 # ignore C-files created by Cython
-pyzdf/_zdf.c
+pyzdf/zdf.c

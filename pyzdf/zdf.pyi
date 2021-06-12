@@ -1,10 +1,9 @@
 from enum import Enum
 from typing import Literal
-from typing import Union
 
-_zdf_magic: str
+ZDF_MAGIC_NUMBER: str
 
-class _zdf_data_type(Enum):
+class zdf_data_type(Enum):
     """
     ZDF datatypes
 
@@ -24,19 +23,23 @@ class _zdf_data_type(Enum):
     float32: Literal["float32"]
     float64: Literal["float64"]
 
-class _zdf_file_access_mode(Enum):
+class zdf_file_access_mode(Enum):
     """ZDF file access modes"""
 
     create: Literal["create"]
     read: Literal["read"]
     update: Literal["update"]
 
-def _zdf_sizeof(data_type: _zdf_data_type) -> int:
+def zdf_sizeof(data_type: zdf_data_type) -> int:
     """
     Returns size of a ZDF datatype
 
     Arguments:
         data_type: ID of the data type as `int` or `zdf_data_type`
+
+    Raises:
+        TypeError: If type of `data_type` is not of type `zdf_data_type`
+
     Returns:
         Type size in bytes or for an invalid data type
     """
