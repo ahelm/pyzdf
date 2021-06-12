@@ -18,19 +18,25 @@ def test_zdf_data_type_is_enum():
     assert issubclass(zdf_data_type, Enum)
 
 
-def test_all_types_zdf_data_type():
+@pytest.mark.parametrize(
+    "data_type",
+    [
+        zdf_data_type.null,
+        zdf_data_type.int8,
+        zdf_data_type.uint8,
+        zdf_data_type.int16,
+        zdf_data_type.uint16,
+        zdf_data_type.int32,
+        zdf_data_type.uint32,
+        zdf_data_type.int64,
+        zdf_data_type.uint64,
+        zdf_data_type.float32,
+        zdf_data_type.float64,
+    ],
+)
+def test_all_types_zdf_data_type(data_type: zdf_data_type):
     """Check all supported ZDF datatypes"""
-    assert isinstance(zdf_data_type.null, zdf_data_type)
-    assert isinstance(zdf_data_type.int8, zdf_data_type)
-    assert isinstance(zdf_data_type.uint8, zdf_data_type)
-    assert isinstance(zdf_data_type.int16, zdf_data_type)
-    assert isinstance(zdf_data_type.uint16, zdf_data_type)
-    assert isinstance(zdf_data_type.int32, zdf_data_type)
-    assert isinstance(zdf_data_type.uint32, zdf_data_type)
-    assert isinstance(zdf_data_type.int64, zdf_data_type)
-    assert isinstance(zdf_data_type.uint64, zdf_data_type)
-    assert isinstance(zdf_data_type.float32, zdf_data_type)
-    assert isinstance(zdf_data_type.float64, zdf_data_type)
+    assert isinstance(data_type, zdf_data_type)
 
 
 def test_zdf_file_access_mode_is_enum():
@@ -38,11 +44,17 @@ def test_zdf_file_access_mode_is_enum():
     assert issubclass(zdf_file_access_mode, Enum)
 
 
-def test_zdf_file_access_mode_modes():
+@pytest.mark.parametrize(
+    "access_mode",
+    [
+        zdf_file_access_mode.create,
+        zdf_file_access_mode.read,
+        zdf_file_access_mode.update,
+    ],
+)
+def test_zdf_file_access_mode_modes(access_mode: zdf_file_access_mode):
     """Check all file access modes"""
-    assert isinstance(zdf_file_access_mode.create, zdf_file_access_mode)
-    assert isinstance(zdf_file_access_mode.read, zdf_file_access_mode)
-    assert isinstance(zdf_file_access_mode.update, zdf_file_access_mode)
+    assert isinstance(access_mode, zdf_file_access_mode)
 
 
 @pytest.mark.parametrize(
@@ -59,19 +71,6 @@ def test_zdf_file_access_mode_modes():
         (zdf_data_type.int64, 8),
         (zdf_data_type.uint64, 8),
         (zdf_data_type.float64, 8),
-    ],
-    ids=[
-        "null",
-        "int8",
-        "uint8",
-        "int16",
-        "uint16",
-        "int32",
-        "uint32",
-        "float32",
-        "int64",
-        "uint64",
-        "float64",
     ],
 )
 def test_zdf_sizeof(data_type: zdf_data_type, size: int):
