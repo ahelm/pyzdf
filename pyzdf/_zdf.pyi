@@ -22,3 +22,10 @@ class _zdf_data_type(Enum):
     uint64: Literal["uint64"]
     float32: Literal["float32"]
     float64: Literal["float64"]
+
+class _zdf_file_access_mode(Enum):
+    """ZDF file access modes"""
+
+    create: Literal["create"]
+    read: Literal["read"]
+    update: Literal["update"]

@@ -16,6 +16,10 @@ cdef extern from "zdf.h":
         zdf_uint64
         zdf_float32
         zdf_float64
+    cdef enum zdf_file_access_mode:
+        ZDF_CREATE
+        ZDF_READ
+        ZDF_UPDATE
 
 _zdf_magic = zdf_magic[:ZDF_MAGIC_LENGTH].decode()
 
@@ -31,3 +35,8 @@ class _zdf_data_type(Enum):
     uint64 = zdf_data_type.zdf_uint64
     float32 = zdf_data_type.zdf_float32
     float64 = zdf_data_type.zdf_float64
+
+class _zdf_file_access_mode(Enum):
+    create = zdf_file_access_mode.ZDF_CREATE
+    read = zdf_file_access_mode.ZDF_READ
+    update = zdf_file_access_mode.ZDF_UPDATE
