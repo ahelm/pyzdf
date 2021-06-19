@@ -1,27 +1,11 @@
 from enum import Enum
 
-cdef extern from "zdf.h":
-    int ZDF_MAGIC_LENGTH
-    const char* zdf_magic
-    enum _zdf_data_type "zdf_data_type":
-        zdf_null
-        zdf_int8
-        zdf_uint8
-        zdf_int16
-        zdf_uint16
-        zdf_int32
-        zdf_uint32
-        zdf_int64
-        zdf_uint64
-        zdf_float32
-        zdf_float64
-    enum _zdf_file_access_mode "zdf_file_access_mode":
-        ZDF_CREATE
-        ZDF_READ
-        ZDF_UPDATE
-    size_t _zdf_sizeof "zdf_sizeof" (_zdf_data_type data_type)
+from ._zdf cimport zdf_data_type as _zdf_data_type
+from ._zdf cimport zdf_file_access_mode as _zdf_file_access_mode
+from ._zdf cimport zdf_magic
+from ._zdf cimport zdf_sizeof as _zdf_sizeof
 
-ZDF_MAGIC_NUMBER = zdf_magic[:ZDF_MAGIC_LENGTH].decode()
+ZDF_MAGIC_NUMBER = zdf_magic.decode()
 
 class zdf_data_type(Enum):
     null = _zdf_data_type.zdf_null
