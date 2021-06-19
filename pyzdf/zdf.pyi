@@ -1,5 +1,9 @@
+from contextlib import contextmanager
 from enum import Enum
+from pathlib import Path
+from typing import Iterator
 from typing import Literal
+from typing import Union
 
 ZDF_MAGIC_NUMBER: str
 
@@ -42,5 +46,42 @@ def zdf_sizeof(data_type: zdf_data_type) -> int:
 
     Returns:
         Type size in bytes or for an invalid data type
+    """
+    ...
+
+class File:
+    def __init__(self, path: Path, mode: zdf_file_access_mode) -> None:
+        """
+        Opens and potentially creates the ZDF file
+
+        Arguments:
+            path: Path to a ZDF file
+            mode: Mode for ZDF file
+        """
+        ...
+    @property
+    def path(self) -> Path:
+        """Path of the ZDF file"""
+        ...
+    @property
+    def access_mode(self) -> zdf_file_access_mode:
+        """Access mode of ZDF file"""
+        ...
+    def close(self):
+        """Close opened ZDF file"""
+
+@contextmanager
+def open_zdf_file(
+    filepath: Union[str, Path],
+    mode: Union[Literal["create"], Literal["read"], Literal["update"]] = "create",
+) -> Iterator[File]:
+    """
+    Opens a ZDF file and returns a `File` object
+
+    Arguments:
+        filepath:
+            Path of ZDF file on disk
+        mode:
+            Mode for opening of ZDF file. Only `create`, `read`, and `update` supported
     """
     ...

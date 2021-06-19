@@ -1,8 +1,10 @@
 from enum import Enum
+from pathlib import Path
 
 import pytest
 
 from pyzdf.zdf import ZDF_MAGIC_NUMBER
+from pyzdf.zdf import open_zdf_file
 from pyzdf.zdf import zdf_data_type
 from pyzdf.zdf import zdf_file_access_mode
 from pyzdf.zdf import zdf_sizeof
@@ -82,3 +84,24 @@ def test_zdf_sizeof_raises():
     """Raise TypeError when invalid type was passed"""
     with pytest.raises(TypeError, match="Invalid data type provided"):
         zdf_sizeof(-1)
+
+
+def test_zdf_open_file(tmp_path: Path):
+    new_file = tmp_path / "new.zdf"
+    assert not new_file.exists()
+
+    with open_zdf_file(new_file) as fp:
+        assert fp.path == new_file
+        assert fp.access_mode == zdf_file_access_mode.create
+
+    assert new_file.exists()
+
+
+def test_zdf_open_writes_magic_number(tmp_path: Path):
+    new_file = tmp_path / "new.zdf"
+
+    with open_zdf_file(new_file):
+        pass
+
+    with open(new_file, mode="r") as fp:
+        assert fp.read() == ZDF_MAGIC_NUMBER
