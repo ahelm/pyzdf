@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from pyzdf.zdf import ZDF_MAGIC_NUMBER
+from pyzdf.zdf import File
 from pyzdf.zdf import open_zdf_file
 from pyzdf.zdf import zdf_data_type
 from pyzdf.zdf import zdf_file_access_mode
@@ -68,6 +69,7 @@ def test_zdf_file_access_mode_modes(access_mode: zdf_file_access_mode):
     ],
 )
 def test_zdf_file_access_mode_str_to_mode(mode_as_str: str, mode: zdf_file_access_mode):
+    """Check conversion of string to mode"""
     assert zdf_file_access_mode.str_to_mode(mode_as_str) == mode
 
 
@@ -99,10 +101,12 @@ def test_zdf_sizeof_raises():
 
 
 def test_zdf_open_file(tmp_path: Path):
+    """Open and create ZDF file and check if it was created"""
     new_file = tmp_path / "new.zdf"
     assert not new_file.exists()
 
     with open_zdf_file(new_file) as fp:
+        assert isinstance(fp, File)
         assert fp.path == new_file
         assert fp.access_mode == zdf_file_access_mode.create
 
@@ -110,6 +114,7 @@ def test_zdf_open_file(tmp_path: Path):
 
 
 def test_zdf_open_writes_magic_number(tmp_path: Path):
+    """Check if magic number was written in ZDF file after creation"""
     new_file = tmp_path / "new.zdf"
 
     with open_zdf_file(new_file):
