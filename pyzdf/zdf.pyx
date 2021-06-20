@@ -30,6 +30,14 @@ class zdf_file_access_mode(Enum):
     read = _zdf_file_access_mode.ZDF_READ
     update = _zdf_file_access_mode.ZDF_UPDATE
 
+    @classmethod
+    def str_to_mode(cls, mode):
+        if hasattr(cls, mode):
+            return getattr(cls, mode)
+        else:
+            raise ValueError("Invalide value for mode provided")
+
+
 def zdf_sizeof(data_type):
     if isinstance(data_type, zdf_data_type):
         return _zdf_sizeof(data_type.value)
@@ -67,15 +75,7 @@ cdef class File:
 
 @contextmanager
 def open_zdf_file(filepath, mode = "create"):
-    if mode == "create":
-        access_mode = zdf_file_access_mode.create
-    elif mode == "read":
-        access_mode = zdf_file_access_mode.read
-    elif mode == "update":
-        access_mode = zdf_file_access_mode.update
-    else:
-        raise ValueError("Invalide value for mode provided")
-
+    access_mode = zdf_file_access_mode.str_to_mode(mode)
     fp = File(Path(filepath), access_mode)
 
     try:

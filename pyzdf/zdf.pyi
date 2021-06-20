@@ -33,6 +33,15 @@ class zdf_file_access_mode(Enum):
     create: Literal["create"]
     read: Literal["read"]
     update: Literal["update"]
+    @classmethod
+    def str_to_mode(cls, mode: str) -> zdf_file_access_mode:
+        """
+        Return file access mode associated with string representation
+
+        Arguments:
+            mode: String associated with file access mode
+        """
+        ...
 
 def zdf_sizeof(data_type: zdf_data_type) -> int:
     """
@@ -52,7 +61,7 @@ def zdf_sizeof(data_type: zdf_data_type) -> int:
 class File:
     def __init__(self, path: Path, mode: zdf_file_access_mode) -> None:
         """
-        Opens and potentially creates the ZDF file
+        Open or create a ZDF file
 
         Arguments:
             path: Path to a ZDF file

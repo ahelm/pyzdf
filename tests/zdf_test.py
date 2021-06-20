@@ -60,6 +60,18 @@ def test_zdf_file_access_mode_modes(access_mode: zdf_file_access_mode):
 
 
 @pytest.mark.parametrize(
+    "mode_as_str, mode",
+    [
+        ("create", zdf_file_access_mode.create),
+        ("read", zdf_file_access_mode.read),
+        ("update", zdf_file_access_mode.update),
+    ],
+)
+def test_zdf_file_access_mode_str_to_mode(mode_as_str: str, mode: zdf_file_access_mode):
+    assert zdf_file_access_mode.str_to_mode(mode_as_str) == mode
+
+
+@pytest.mark.parametrize(
     "data_type, size",
     [
         (zdf_data_type.null, 0),
